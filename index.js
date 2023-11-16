@@ -10,6 +10,7 @@ morgan.token('body', (request, response) => {
 		return JSON.stringify(request.body)
 })
 
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(cors())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
@@ -104,7 +105,14 @@ app.post('/api/persons', (request, response) => {
 })
 
 app.put('/api/persons/:id', (request, response) => {
-	console.log(request.body)
+
+	const id = request.params.id;
+	const person = persons.find(p => p.id === Number(id))
+
+	const changedPerson = { ...person, number: request.body.number }
+	persons.map(p => p.id !== id ? p : changedPerson)
+
+	response.json(changedPerson)
 })
 
 const PORT = process.env.PORT || 3001
