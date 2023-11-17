@@ -9,7 +9,8 @@
     "build:ui": "rm -rf dist && cd ../fsopen/part2/phonebook && npm run build && cp -r dist ../../../nodejs-rest",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "debug": "node --inspect index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "Vladana Ignjatic",
@@ -22,6 +23,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.53.0",
     "nodemon": "^3.0.1"
   }
 }

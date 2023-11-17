@@ -7,7 +7,7 @@ const Person = require('./models/person')
 
 const app = express()
 
-morgan.token('body', (request, response) => {
+morgan.token('body', (request) => {
 
 	if (request.method === 'POST')
 		return JSON.stringify(request.body)
@@ -29,11 +29,11 @@ app.get('/api/persons', (request, response) => {
 		.then(persons => {
 			response.json(persons)
 		})
-	})
+})
 
 app.get('/info', (request, response, next) => {
 
-	const currTime = new Date();
+	const currTime = new Date()
 
 	Person.estimatedDocumentCount({})
 		.then(count => {
@@ -53,7 +53,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 				response.json(person)
 			} else {
 
-				response.statusMessage = "Person with this id does not exists";
+				response.statusMessage = 'Person with this id does not exists'
 				response.status(404).end()
 			}
 		})
@@ -88,7 +88,7 @@ app.post('/api/persons', (request, response, next) => {
 
 })
 
-app.put('/api/persons/:id', (request, response) => {
+app.put('/api/persons/:id', (request, response, next) => {
 
 	const { name, number } = request.body
 
@@ -126,5 +126,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+	console.log(`Server running on port ${PORT}`)
 })
